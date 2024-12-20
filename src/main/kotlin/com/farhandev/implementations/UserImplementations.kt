@@ -57,4 +57,8 @@ class UserImplementations: UserServices {
     override suspend fun getUser(id: Int): User? =  dbQuery {
         Users.selectAll().where { (Users.id eq id) }.map { resultRowToUser(it) }.singleOrNull()
     }
+
+    override suspend fun getUserByUsername(username: String): List<User> = dbQuery {
+        Users.selectAll().where { (Users.username eq username) }.map { resultRowToUser(it) }
+    }
 }

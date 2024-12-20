@@ -1,7 +1,10 @@
 package com.farhandev.routes
 
+import at.favre.lib.crypto.bcrypt.BCrypt
+import com.farhandev.model.Login
 import com.farhandev.model.User
 import com.farhandev.presenters.UserServices
+import com.farhandev.responseModel.GenericResponse
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -64,6 +67,36 @@ fun Routing.userRoute(userServices: UserServices){
                     call.respond(HttpStatusCode.OK,user)
                 } ?: call.respond(HttpStatusCode.NotFound,"User not found")
             } ?: call.respond(HttpStatusCode.BadGateway,"Provide Input!!")
+        }
+
+        post("/login") {
+            val loginParameter = call.receive<Login>()
+            val checkUser = userServices.getUserByUsername(loginParameter.username)
+
+            if (checkUser.isEmpty()){
+                call.respond(HttpStatusCode.NotFound, GenericResponse(
+                    status = "failed",
+                    message = "Username not registered yet"
+                ))
+                return@post
+            }
+
+            val hashPassword = checkUser.singleOrNull()?.password
+            val checkPassword = BCrypt.verifyer().verify(loginParameter.password.toCharArray(), hashPassword)
+
+            if (checkPassword.verified){
+                call.respond(HttpStatusCode.OK, GenericResponse(
+                    status = "success",
+                    message = "Login successfully",
+                    data = checkUser.singleOrNull()
+                ))
+                return@post
+            } else {
+                call.respond(HttpStatusCode.BadRequest, GenericResponse(
+                    status = "failed",
+                    message = "Wrong password, please check your password again"
+                ))
+            }
         }
     }
 }

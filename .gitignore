@@ -34,3 +34,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### conf ###
+/src/main/resources/application.conf

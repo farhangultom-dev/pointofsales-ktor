@@ -33,6 +33,8 @@ dependencies {
     implementation(libs.hikari.cp)
     implementation(libs.ktor.koin)
     implementation(libs.bcrypt)
+    implementation(libs.auth)
+    implementation(libs.auth.jwt)
 
     implementation(libs.logback.classic)
     testImplementation(libs.ktor.server.test.host)

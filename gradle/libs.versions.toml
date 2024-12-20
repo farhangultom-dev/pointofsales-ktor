@@ -26,6 +26,8 @@ mysql-connector = { module = "mysql:mysql-connector-java", version.ref = "mysql-
 ktor-koin = { module = "io.insert-koin:koin-ktor", version.ref = "koin-ktor" }
 hikari-cp = { module = "com.zaxxer:HikariCP", version.ref = "hikari-cp" }
 bcrypt = { module = "at.favre.lib:bcrypt", version.ref = "bcrypt-version" }
+auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor-version" }
+auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor-version" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }

@@ -9,4 +9,5 @@ interface UserServices {
     suspend fun getUsers():List<User>
     suspend fun searchUser(query:String):List<User>
     suspend fun getUser(id:Int): User?
+    suspend fun getUserByUsername(username: String): List<User>
 }
